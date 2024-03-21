@@ -1,0 +1,26 @@
+name: Deploy to Main
+
+on:
+  push:
+    branches:
+      - 'feature/LOCAL-*'
+
+jobs:
+  deploy:
+    name: Deploy to Main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add your deployment steps here
+      - name: Deploy to Main
+        run: |
+          git config --global user.name "dominicimatheusmd"
+          git checkout main
+          git merge --no-ff ${{ github.ref }}
+          git push origin main
+          echo "Deploying from feature branch to main"
+
+    
